@@ -1,0 +1,8 @@
+/home/k8s/Azure-Kinect-Samples/build/CMakeFiles/rebuild_cache.dir
+/home/k8s/Azure-Kinect-Samples/build/CMakeFiles/edit_cache.dir
+/home/k8s/Azure-Kinect-Samples/build/body-tracking-samples/CMakeFiles/rebuild_cache.dir
+/home/k8s/Azure-Kinect-Samples/build/body-tracking-samples/CMakeFiles/edit_cache.dir
+/home/k8s/Azure-Kinect-Samples/build/body-tracking-samples/simple_cpp_sample/CMakeFiles/edit_cache.dir
+/home/k8s/Azure-Kinect-Samples/build/body-tracking-samples/simple_cpp_sample/CMakeFiles/rebuild_cache.dir
+/home/k8s/Azure-Kinect-Samples/build/body-tracking-samples/simple_cpp_sample/CMakeFiles/simple_cpp_sample.dir
+/home/k8s/Azure-Kinect-Samples/build/body-tracking-samples/simple_cpp_sample/CMakeFiles/server.dir
