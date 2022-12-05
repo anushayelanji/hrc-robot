@@ -1,6 +1,4 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
-
+//main.cpp
 
 #include <assert.h>
 #include <array>
@@ -10,7 +8,6 @@
 #include <map>
 #include <vector>
 #include <ctime>
-
 
 //k4a recorder includes
 #include <k4a/k4a.hpp>
@@ -144,33 +141,30 @@ open_clientfd()
 int main()
 {
 
-    cout<<"KEY"<<endl;
+    cfd = open_clientfd();
+
+    string the_path;
+    cout<<"\n   KEY"<<endl;
     cout<<"r to record"<<endl;
     cout<<"s to stop"<<endl;
     cout<<"q to quit \n"<<endl;
 
-    //trial client code
+
+    //uncomment to choose path of saved videos
+    //cout<<"Enter path of where videos should be saved:"<<endl;
+    //getline(cin, the_path);
+
 
     printf("I am the client.\n");
-	//printf("Input file name: %s\n", argv[1]);
-	//printf("My server IP address: %s\n", argv[2]);
 
 	printf("-----------\n");
 
-    //char* host = '127.0.0.1';
     string port = "9999";
     
     int status;
     char line[MAXLINE];
     char buf[MAXLINE];
    
-    cfd = open_clientfd();
-    string hello = "Hello from client";
-    send(cfd, "Hello from client", size(hello), 0);
-
-
-    //exit(EXIT_SUCCESS);
-
 
     int32_t color_exposure_usec = 8000;  // somewhat reasonable default exposure time
     int32_t powerline_freq = 2;          // default to a 60 Hz powerline
@@ -220,6 +214,11 @@ int main()
 
         while (1)
         {
+
+            //used to test client server connection
+            size_t test = 32;
+            send(cfd, "Hello from client", test, 0);
+        
             k4a::image uncompressed_color_image = NULL;
 
             vector<k4a::capture>captures;
@@ -240,7 +239,23 @@ int main()
 
             cv::Mat masterMat(rows_m, cols_m, CV_8UC4, (void*)buffer_m);
             cv::Mat subMat(rows_s, cols_s, CV_8UC4, (void*)buffer_s);
-            
+
+            int masterSize = masterMat.total()*masterMat.elemSize();
+            int subSize = subMat.total()*subMat.elemSize();
+
+            //send(cfd, &masterMat.data, masterSize, 0);
+
+            //tried to send as a stringstream
+            /*
+            std::ostringstream convert;
+            for(int i = 0; i < 2073600; i++){
+                convert<<(int)buffer_m[i];
+            }
+            string key_string = convert.str();
+        
+            send(cfd, &key_string, sizeof(key_string), 0);
+           */
+
             namedWindow("Master", WINDOW_NORMAL);
             resizeWindow("Master", 850,478);
             imshow("Master", masterMat);
@@ -251,10 +266,11 @@ int main()
             
 
             int key = (waitKey(15) & 0xFF);
-          
-
-        if (key == 'r')
+            
+        
+            if (key == 'r')
             {
+               
 
                 std::time_t timestamp = std::time(0);  // t is an integer type
                 std::stringstream s_timestamp;
@@ -262,6 +278,11 @@ int main()
                 
                 string file_path_1 = "/home/k8s/Azure-Kinect-Samples/Recorded_Vids/record-main";
                 string file_path_2 = "/home/k8s/Azure-Kinect-Samples/Recorded_Vids/record-sub";
+
+                //uncomment to put in choose file path
+                //string file_path_1 = the_path + "record-main";
+                //string file_path_1 = the_path + "record-sub";
+
                 file_path_1 += '-' + s_timestamp.str() + ".mkv";
                 file_path_2 += '-' + s_timestamp.str() + ".mkv";
                 const char * c_1 = file_path_1.c_str();
@@ -277,9 +298,11 @@ int main()
 
 
                 record_flag = 1;    
+        
             }
             else if (key == 's')
             {
+
                 cout<<"Recording Done"<<endl;
                 record_flag = 0;
                 record_main.flush();
@@ -287,7 +310,7 @@ int main()
                 record_sub.flush();
                 record_sub.close();
             }
-                        else if (key == 'q')
+            else if (key == 'q')
             {
                 capturer.close_devices();
                 exit(1);
@@ -309,16 +332,11 @@ int main()
                 
             }
             
-
             frame_count++;
             captures[0].reset();
             captures[1].reset();
-
-
-           
-
         }
-        //std::cout << "Finished body tracking processing!" << std::endl;
+        
 
         capturer.close_devices();
 
