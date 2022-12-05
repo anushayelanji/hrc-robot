@@ -7,5 +7,7 @@ The Azure Kinect Body Tracking SimpleCpp sample is the simplest example that dem
 ## Usage Info
 
 ```
+cmake .. -GNinja
+ninja
 simple_cpp_sample.exe
 ```
