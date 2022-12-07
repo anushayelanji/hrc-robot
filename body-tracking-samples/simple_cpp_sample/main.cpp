@@ -61,37 +61,6 @@ using std::vector;
 
 #define FOURCC(cc) ((cc)[0] | (cc)[1] << 8 | (cc)[2] << 16 | (cc)[3] << 24)
 
-// Codec context struct for Codec ID: "V_MS/VFW/FOURCC"
-// See https://docs.microsoft.com/en-us/windows/desktop/wmdm/-bitmapinfoheader
-typedef struct
-{
-    uint32_t biSize;
-    uint32_t biWidth;
-    uint32_t biHeight;
-    uint16_t biPlanes;
-    uint16_t biBitCount;
-    uint32_t biCompression;
-    uint32_t biSizeImage;
-    uint32_t biXPelsPerMeter;
-    uint32_t biYPelsPerMeter;
-    uint32_t biClrUsed;
-    uint32_t biClrImportant;
-} BITMAPINFOHEADER;
-
-void fill_bitmap_header(uint32_t width, uint32_t height, BITMAPINFOHEADER *out);
-void fill_bitmap_header(uint32_t width, uint32_t height, BITMAPINFOHEADER *out)
-{
-    out->biSize = sizeof(BITMAPINFOHEADER);
-    out->biWidth = width;
-    out->biHeight = height;
-    out->biPlanes = 1;
-    out->biBitCount = 16;
-    out->biXPelsPerMeter = 0;
-    out->biYPelsPerMeter = 0;
-    out->biClrUsed = 0;
-    out->biClrImportant = 0;
-}
-
 constexpr uint32_t MIN_TIME_BETWEEN_DEPTH_CAMERA_PICTURES_USEC = 160;
 static k4a_device_configuration_t get_master_config();
 static k4a_device_configuration_t get_subordinate_config();
