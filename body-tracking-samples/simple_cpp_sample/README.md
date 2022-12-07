@@ -1,8 +1,8 @@
-# Azure Kinect Body Tracking SimpleCpp Sample
+# Azure Kinect Sensor SDK
 
 ## Introduction
 
-The Azure Kinect Body Tracking SimpleCpp sample is the simplest example that demonstrates how to use the body tracking SDK cpp wrapper.
+This is the Human-Robot Collaboration project.
 
 ## Usage Info
 
