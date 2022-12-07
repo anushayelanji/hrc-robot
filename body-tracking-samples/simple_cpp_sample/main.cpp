@@ -168,9 +168,7 @@ int main()
         k4a::calibration main_calibration = capturer.get_master_device().get_calibration(main_config.depth_mode,
                                                                                      main_config.color_resolution);
 
-        // Set up a transformation. DO THIS OUTSIDE OF YOUR MAIN LOOP! Constructing transformations involves time-intensive
-        // hardware setup and should not change once you have a rigid setup, so only call it once or it will run very
-        // slowly.
+        // Transformation
         k4a::transformation trans = k4a_transformation_create(&main_calibration);
 
         capturer.start_devices(main_config, secondary_config);
